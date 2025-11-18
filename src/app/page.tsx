@@ -1,10 +1,13 @@
 "use client"
 
-import { Play, Zap, Video, TrendingUp, Dumbbell, Camera, Share2, CheckCircle2, ChevronRight, Sparkles, Clock, Target, Award, Users, Flame, BarChart3, Calendar } from "lucide-react"
+import { Play, Zap, Video, TrendingUp, Dumbbell, Camera, Share2, CheckCircle2, ChevronRight, Sparkles, Clock, Target, Award, Users, Flame, BarChart3, Calendar, Pause, X } from "lucide-react"
 import { useState } from "react"
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("all")
+  const [selectedExercise, setSelectedExercise] = useState<any>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [selectedWorkout, setSelectedWorkout] = useState<any>(null)
 
   const categories = [
     { id: "all", name: "Todos", icon: Dumbbell },
@@ -17,12 +20,66 @@ export default function Home() {
   ]
 
   const exercises = [
-    { name: "Agachamento Livre", duration: "8s", level: "Iniciante", muscles: "Pernas, Glúteos", category: "legs", score: 92 },
-    { name: "Flexão Diamante", duration: "10s", level: "Intermediário", muscles: "Peito, Tríceps", category: "chest", score: 88 },
-    { name: "Prancha Lateral", duration: "12s", level: "Avançado", muscles: "Core, Oblíquos", category: "abs", score: 95 },
-    { name: "Stiff", duration: "9s", level: "Intermediário", muscles: "Posterior, Glúteos", category: "glutes", score: 90 },
-    { name: "Remada Curvada", duration: "11s", level: "Avançado", muscles: "Costas, Bíceps", category: "back", score: 87 },
-    { name: "Rosca Direta", duration: "7s", level: "Iniciante", muscles: "Bíceps", category: "arms", score: 91 },
+    { 
+      name: "Agachamento Livre", 
+      duration: "8s", 
+      level: "Iniciante", 
+      muscles: "Pernas, Glúteos", 
+      category: "legs", 
+      score: 92,
+      videoUrl: "https://videos.pexels.com/video-files/6740307/6740307-hd_1080_1920_30fps.mp4",
+      description: "Exercício fundamental para pernas e glúteos. Mantenha os pés na largura dos ombros."
+    },
+    { 
+      name: "Flexão Diamante", 
+      duration: "10s", 
+      level: "Intermediário", 
+      muscles: "Peito, Tríceps", 
+      category: "chest", 
+      score: 88,
+      videoUrl: "https://videos.pexels.com/video-files/4753990/4753990-hd_1080_1920_25fps.mp4",
+      description: "Variação avançada de flexão focada em tríceps. Mãos formam um diamante."
+    },
+    { 
+      name: "Prancha Lateral", 
+      duration: "12s", 
+      level: "Avançado", 
+      muscles: "Core, Oblíquos", 
+      category: "abs", 
+      score: 95,
+      videoUrl: "https://videos.pexels.com/video-files/6740314/6740314-hd_1080_1920_30fps.mp4",
+      description: "Fortalece o core e oblíquos. Mantenha o corpo alinhado."
+    },
+    { 
+      name: "Stiff", 
+      duration: "9s", 
+      level: "Intermediário", 
+      muscles: "Posterior, Glúteos", 
+      category: "glutes", 
+      score: 90,
+      videoUrl: "https://videos.pexels.com/video-files/6740320/6740320-hd_1080_1920_30fps.mp4",
+      description: "Trabalha posterior de coxa e glúteos. Mantenha as costas retas."
+    },
+    { 
+      name: "Remada Curvada", 
+      duration: "11s", 
+      level: "Avançado", 
+      muscles: "Costas, Bíceps", 
+      category: "back", 
+      score: 87,
+      videoUrl: "https://videos.pexels.com/video-files/6740324/6740324-hd_1080_1920_30fps.mp4",
+      description: "Exercício completo para costas. Mantenha o core contraído."
+    },
+    { 
+      name: "Rosca Direta", 
+      duration: "7s", 
+      level: "Iniciante", 
+      muscles: "Bíceps", 
+      category: "arms", 
+      score: 91,
+      videoUrl: "https://videos.pexels.com/video-files/4753989/4753989-hd_1080_1920_25fps.mp4",
+      description: "Exercício isolado para bíceps. Cotovelos fixos ao lado do corpo."
+    },
   ]
 
   const workoutPlans = [
@@ -76,13 +133,19 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-              <button className="group relative w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+              <button 
+                onClick={() => window.scrollTo({ top: document.getElementById('library')?.offsetTop || 0, behavior: 'smooth' })}
+                className="group relative w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
                 <span className="flex items-center justify-center gap-2">
                   Começar Gratuitamente
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
               </button>
-              <button className="w-full sm:w-auto px-10 py-5 bg-white border-2 border-gray-300 text-gray-900 rounded-2xl font-bold text-lg hover:border-[#22c55e] hover:bg-gray-50 transition-all duration-300 shadow-lg">
+              <button 
+                onClick={() => window.scrollTo({ top: document.getElementById('workout-mode')?.offsetTop || 0, behavior: 'smooth' })}
+                className="w-full sm:w-auto px-10 py-5 bg-white border-2 border-gray-300 text-gray-900 rounded-2xl font-bold text-lg hover:border-[#22c55e] hover:bg-gray-50 transition-all duration-300 shadow-lg"
+              >
                 Ver Demo Interativa
               </button>
             </div>
@@ -282,7 +345,7 @@ export default function Home() {
       </section>
 
       {/* Exercise Library Preview */}
-      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white">
+      <section id="library" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#a855f7]/10 to-[#22c55e]/10 rounded-full text-[#a855f7] font-bold mb-6 border border-[#a855f7]/20">
@@ -327,24 +390,32 @@ export default function Home() {
               >
                 {/* Video Placeholder */}
                 <div className="relative aspect-[9/16] bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#a855f7]/20 to-[#22c55e]/20" />
-                  <Dumbbell className="w-20 h-20 text-white/40 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                  <video 
+                    src={exercise.videoUrl}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loop
+                    muted
+                    playsInline
+                  />
                   
                   {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                  <button 
+                    onClick={() => setSelectedExercise(exercise)}
+                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 z-10"
+                  >
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
                       <Play className="w-8 h-8 text-[#a855f7] ml-1" strokeWidth={2.5} />
                     </div>
-                  </div>
+                  </button>
 
                   {/* Duration Badge */}
-                  <div className="absolute top-4 right-4 px-4 py-2 bg-black/80 backdrop-blur-sm rounded-full text-white text-sm font-bold flex items-center gap-2">
+                  <div className="absolute top-4 right-4 px-4 py-2 bg-black/80 backdrop-blur-sm rounded-full text-white text-sm font-bold flex items-center gap-2 z-10">
                     <Clock className="w-4 h-4" />
                     {exercise.duration}
                   </div>
 
                   {/* Score Badge */}
-                  <div className="absolute top-4 left-4 px-4 py-2 bg-[#22c55e] rounded-full text-white text-sm font-bold flex items-center gap-1">
+                  <div className="absolute top-4 left-4 px-4 py-2 bg-[#22c55e] rounded-full text-white text-sm font-bold flex items-center gap-1 z-10">
                     <Award className="w-4 h-4" />
                     {exercise.score}
                   </div>
@@ -361,7 +432,10 @@ export default function Home() {
                   <p className="text-sm text-gray-600 mb-4">
                     <span className="font-bold text-gray-900">Músculos:</span> {exercise.muscles}
                   </p>
-                  <button className="w-full px-6 py-3 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105">
+                  <button 
+                    onClick={() => setSelectedExercise(exercise)}
+                    className="w-full px-6 py-3 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  >
                     Ver Detalhes
                   </button>
                 </div>
@@ -370,6 +444,61 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Exercise Modal */}
+      {selectedExercise && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedExercise(null)}>
+          <div className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="relative">
+              <video 
+                src={selectedExercise.videoUrl}
+                className="w-full aspect-video object-cover rounded-t-3xl"
+                controls
+                autoPlay
+                loop
+              />
+              <button 
+                onClick={() => setSelectedExercise(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/80 transition-colors"
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+            </div>
+            <div className="p-8">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="px-4 py-2 bg-[#22c55e]/10 text-[#22c55e] rounded-full text-sm font-bold">
+                  {selectedExercise.level}
+                </span>
+                <span className="px-4 py-2 bg-[#a855f7]/10 text-[#a855f7] rounded-full text-sm font-bold flex items-center gap-2">
+                  <Award className="w-4 h-4" />
+                  {selectedExercise.score}
+                </span>
+              </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">{selectedExercise.name}</h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">{selectedExercise.description}</p>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3 text-gray-700">
+                  <Clock className="w-5 h-5 text-[#a855f7]" />
+                  <span className="font-semibold">Duração:</span> {selectedExercise.duration}
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <Dumbbell className="w-5 h-5 text-[#a855f7]" />
+                  <span className="font-semibold">Músculos:</span> {selectedExercise.muscles}
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  setSelectedExercise(null)
+                  setSelectedWorkout(selectedExercise)
+                }}
+                className="w-full px-8 py-4 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold hover:shadow-lg transition-all"
+              >
+                Iniciar Treino
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Workout Plans */}
       <section className="py-16 sm:py-24 lg:py-32 bg-white">
@@ -413,7 +542,10 @@ export default function Home() {
                       <span className="font-semibold">{plan.goal}</span>
                     </div>
                   </div>
-                  <button className="w-full px-6 py-3 bg-gray-900 group-hover:bg-white text-white group-hover:text-gray-900 rounded-xl font-bold transition-all duration-300">
+                  <button 
+                    onClick={() => alert(`Iniciando treino: ${plan.title}`)}
+                    className="w-full px-6 py-3 bg-gray-900 group-hover:bg-white text-white group-hover:text-gray-900 rounded-xl font-bold transition-all duration-300"
+                  >
                     Iniciar Treino
                   </button>
                 </div>
@@ -424,7 +556,7 @@ export default function Home() {
       </section>
 
       {/* Workout Mode Preview */}
-      <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white">
+      <section id="workout-mode" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="space-y-8">
@@ -472,7 +604,7 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Phone Mockup */}
+            {/* Phone Mockup with Interactive Video */}
             <div className="relative">
               <div className="relative mx-auto w-full max-w-sm">
                 {/* Phone Frame */}
@@ -485,16 +617,22 @@ export default function Home() {
 
                     {/* Video Area */}
                     <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 h-[68%] flex items-center justify-center">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#a855f7]/30 to-[#22c55e]/30" />
-                      <Dumbbell className="w-24 h-24 text-white/50" strokeWidth={1.5} />
+                      <video 
+                        src={exercises[0].videoUrl}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        loop
+                        muted
+                        autoPlay
+                        playsInline
+                      />
                       
                       {/* Progress Bar */}
-                      <div className="absolute bottom-0 left-0 right-0 h-2 bg-gray-700">
+                      <div className="absolute bottom-0 left-0 right-0 h-2 bg-gray-700 z-10">
                         <div className="h-full w-2/5 bg-gradient-to-r from-[#a855f7] to-[#22c55e]" />
                       </div>
 
                       {/* Exercise Info Overlay */}
-                      <div className="absolute top-6 left-6 right-6">
+                      <div className="absolute top-6 left-6 right-6 z-10">
                         <div className="bg-black/60 backdrop-blur-md rounded-2xl p-4">
                           <div className="text-white font-bold text-lg mb-1">Série 2 de 3</div>
                           <div className="text-white/80 text-sm">12 repetições</div>
@@ -513,8 +651,15 @@ export default function Home() {
                         <button className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
                           <ChevronRight className="w-7 h-7 text-gray-700 rotate-180" strokeWidth={2.5} />
                         </button>
-                        <button className="w-20 h-20 bg-gradient-to-r from-[#a855f7] to-[#9333ea] rounded-full flex items-center justify-center shadow-xl hover:scale-105 transition-transform">
-                          <Play className="w-10 h-10 text-white ml-1" strokeWidth={2.5} />
+                        <button 
+                          onClick={() => setIsPlaying(!isPlaying)}
+                          className="w-20 h-20 bg-gradient-to-r from-[#a855f7] to-[#9333ea] rounded-full flex items-center justify-center shadow-xl hover:scale-105 transition-transform"
+                        >
+                          {isPlaying ? (
+                            <Pause className="w-10 h-10 text-white" strokeWidth={2.5} />
+                          ) : (
+                            <Play className="w-10 h-10 text-white ml-1" strokeWidth={2.5} />
+                          )}
                         </button>
                         <button className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
                           <ChevronRight className="w-7 h-7 text-gray-700" strokeWidth={2.5} />
@@ -523,8 +668,14 @@ export default function Home() {
 
                       {/* Next Exercise Preview */}
                       <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl">
-                        <div className="w-20 h-20 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <Play className="w-7 h-7 text-gray-500" strokeWidth={2.5} />
+                        <div className="w-20 h-20 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          <video 
+                            src={exercises[1].videoUrl}
+                            className="w-full h-full object-cover"
+                            loop
+                            muted
+                            playsInline
+                          />
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-xs text-gray-500 font-bold mb-1">PRÓXIMO EXERCÍCIO</div>
@@ -693,16 +844,25 @@ export default function Home() {
               </div>
               <div className="mt-6 space-y-3">
                 <div className="flex gap-3">
-                  <button className="flex-1 px-6 py-4 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => alert('Gerando vídeo mensal...')}
+                    className="flex-1 px-6 py-4 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                  >
                     <Calendar className="w-5 h-5" />
                     Gerar Mensal
                   </button>
-                  <button className="flex-1 px-6 py-4 bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white rounded-2xl font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                  <button 
+                    onClick={() => alert('Gerando vídeo anual...')}
+                    className="flex-1 px-6 py-4 bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white rounded-2xl font-bold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                  >
                     <TrendingUp className="w-5 h-5" />
                     Gerar Anual
                   </button>
                 </div>
-                <button className="w-full px-6 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-2">
+                <button 
+                  onClick={() => alert('Compartilhando nas redes sociais...')}
+                  className="w-full px-6 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                >
                   <Share2 className="w-5 h-5" />
                   Compartilhar nas Redes
                 </button>
@@ -760,10 +920,16 @@ export default function Home() {
             Junte-se a milhares de pessoas que já treinam de forma mais inteligente, rápida e motivadora com FITCLIP
           </p>
           <div className="flex flex-col sm:flex-row gap-5 justify-center mb-12">
-            <button className="px-12 py-6 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="px-12 py-6 bg-gradient-to-r from-[#a855f7] to-[#9333ea] text-white rounded-2xl font-bold text-xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
+            >
               Começar Gratuitamente
             </button>
-            <button className="px-12 py-6 bg-white border-2 border-gray-300 text-gray-900 rounded-2xl font-bold text-xl hover:border-[#22c55e] hover:bg-gray-50 transition-all duration-300 shadow-lg">
+            <button 
+              onClick={() => alert('Veja nossos planos premium!')}
+              className="px-12 py-6 bg-white border-2 border-gray-300 text-gray-900 rounded-2xl font-bold text-xl hover:border-[#22c55e] hover:bg-gray-50 transition-all duration-300 shadow-lg"
+            >
               Ver Planos Premium
             </button>
           </div>
